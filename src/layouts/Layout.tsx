@@ -6,7 +6,7 @@ export default function Layout() {
     <>
       <Header />
 
-      <main className="container mx-auto py-16">
+      <main className="container md:max-w-screen-xl mx-auto p-6">
         <Outlet />
       </main>
     </>
