@@ -4,6 +4,7 @@ import Layout from "./layouts/Layout";
 
 const IndexPagina = lazy(() => import("./views/IndexPagina"));
 const FavoritosPagina = lazy(() => import("./views/FavoritosPagina"));
+const GenerarConIA = lazy(() => import("./views/GenerarConIA"));
 
 export default function AppRouter() {
   return (
@@ -19,11 +20,21 @@ export default function AppRouter() {
             }
             index
           />
+
           <Route
             path="/favoritos"
             element={
               <Suspense fallback="Cargando...">
                 <FavoritosPagina />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/generarconia"
+            element={
+              <Suspense fallback="Cargando...">
+                <GenerarConIA />
               </Suspense>
             }
           />

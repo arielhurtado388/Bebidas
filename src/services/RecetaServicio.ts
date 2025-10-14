@@ -1,43 +1,45 @@
-import axios from "axios";
 import {
   CategoriasAPISchema,
   RecetaAPIRespuestaSchema,
   RecetasSchema,
 } from "../schemas/receta-schema";
 import type { Filtro, Receta } from "../types";
+import api from "../lib/axios";
 
-export async function obtenerCategorias() {
-  const url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
+export default {
+  async obtenerCategorias() {
+    const url = "/list.php?c=list";
 
-  const { data } = await axios(url);
+    const { data } = await api(url);
 
-  const resultado = CategoriasAPISchema.safeParse(data);
+    const resultado = CategoriasAPISchema.safeParse(data);
 
-  if (resultado.success) {
-    return resultado.data;
-  }
-}
+    if (resultado.success) {
+      return resultado.data;
+    }
+  },
 
-export async function obtenerRecetas(filtro: Filtro) {
-  const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filtro.categoria}&i=${filtro.ingrediente}`;
+  async obtenerRecetas(filtro: Filtro) {
+    const url = `/filter.php?c=${filtro.categoria}&i=${filtro.ingrediente}`;
 
-  const { data } = await axios(url);
+    const { data } = await api(url);
 
-  const resultado = RecetasSchema.safeParse(data);
+    const resultado = RecetasSchema.safeParse(data);
 
-  if (resultado.success) {
-    return resultado.data;
-  }
-}
+    if (resultado.success) {
+      return resultado.data;
+    }
+  },
 
-export async function obtenerRecetaPorId(id: Receta["idDrink"]) {
-  const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  async obtenerRecetaPorId(id: Receta["idDrink"]) {
+    const url = `/lookup.php?i=${id}`;
 
-  const { data } = await axios(url);
+    const { data } = await api(url);
 
-  const resultado = RecetaAPIRespuestaSchema.safeParse(data.drinks[0]);
+    const resultado = RecetaAPIRespuestaSchema.safeParse(data.drinks[0]);
 
-  if (resultado.success) {
-    return resultado.data;
-  }
-}
+    if (resultado.success) {
+      return resultado.data;
+    }
+  },
+};

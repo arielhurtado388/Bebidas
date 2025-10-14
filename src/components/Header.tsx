@@ -46,6 +46,17 @@ export default function Header() {
             >
               Favoritos
             </NavLink>
+
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-500 uppercase font-bold"
+                  : "text-white uppercase font-bold"
+              }
+              to="/generarconia"
+            >
+              Generar con ia
+            </NavLink>
           </nav>
         </div>
         {esInicio && <FormularioBuscador />}

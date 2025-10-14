@@ -1,9 +1,7 @@
 import type { StateCreator } from "zustand";
-import {
-  obtenerCategorias,
-  obtenerRecetaPorId,
-  obtenerRecetas,
-} from "../services/RecetaServicio";
+
+import RecetaServicio from "../services/RecetaServicio";
+
 import type {
   Categorias,
   Filtro,
@@ -42,19 +40,19 @@ export const crearRecetaSlice: StateCreator<
   recetaSeleccionada: {} as RecetaSeleccionada,
 
   fetchCategorias: async () => {
-    const categorias = await obtenerCategorias();
+    const categorias = await RecetaServicio.obtenerCategorias();
     set({
       categorias,
     });
   },
   fetchRecetas: async (filtro) => {
-    const recetas = await obtenerRecetas(filtro);
+    const recetas = await RecetaServicio.obtenerRecetas(filtro);
     set({
       recetas,
     });
   },
   seleccionarReceta: async (id) => {
-    const recetaSeleccionada = await obtenerRecetaPorId(id);
+    const recetaSeleccionada = await RecetaServicio.obtenerRecetaPorId(id);
     set({
       recetaSeleccionada,
       modal: true,
